@@ -110,3 +110,4 @@ if(navigator.geolocation){
 }else{
   cityEl.textContent = 'Geolocation not supported';
 }
+

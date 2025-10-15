@@ -11,24 +11,31 @@
 <body>
   <div class="weather-bg">
     <div class="weather-card fade-in">
+      <div class="search-box">
+        <input type="text" id="city-input" placeholder="Search city..." />
+        <button id="search-btn">Search</button>
+      </div>
+
       <div class="icon">
         <lottie-player id="weather-icon" autoplay loop mode="normal" background="transparent" style="width:150px; height:150px;"></lottie-player>
       </div>
+
       <h1 class="city">Detecting location...</h1>
       <div class="temp">--°C</div>
       <div class="description">---</div>
+
       <div class="extras">
         <p>Feels like: <span class="feels-like">--°C</span></p>
         <p>Humidity: <span class="humidity">--%</span></p>
         <p>Wind: <span class="wind">-- km/h</span></p>
       </div>
+
+      <footer class="card-footer">Powered by WeatherMap</footer>
     </div>
   </div>
 
-  <!-- Animated elements for rain/snow/clouds -->
   <div id="weather-effects"></div>
 
-  
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 const API_BASE = 'https://api.openweathermap.org/data/2.5';
-let apiKey = localStorage.getItem('owm_api_key') || 'YOUR_API_KEY';
+let apiKey = localStorage.getItem('47d9be712be1cb50e6e833b9ae1a8b99') || 'YOUR_API_KEY';
 
 const cityEl = document.querySelector('.city');
 const tempEl = document.querySelector('.temp');
@@ -103,3 +103,4 @@ if(navigator.geolocation){
 }else{
   cityEl.textContent = 'Geolocation not supported';
 }
+

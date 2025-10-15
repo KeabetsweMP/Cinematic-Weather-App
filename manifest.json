@@ -1,0 +1,23 @@
+{
+  "name": "Weather Now",
+  "short_name": "WeatherNow",
+  "short_description": "A modern, responsive weather app that shows live conditions and forecasts anywhere in the world.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2b5876",
+  "theme_color": "#15919B",
+  "icons": [
+    {
+      "src": "./Weather Now photos/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./Weather Now photos/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

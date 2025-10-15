@@ -1,6 +1,18 @@
+// ---- CONFIG ----
 const API_BASE = 'https://api.openweathermap.org/data/2.5';
-let apiKey = localStorage.getItem('own_api_key') || 'YOUR_API_KEY';
+let apiKey = localStorage.getItem('owm_api_key');
 
+// ---- PROMPT FOR API KEY IF MISSING ----
+if(!apiKey){
+    apiKey = prompt("Enter your OpenWeatherMap API Key:");
+    if(apiKey){
+        localStorage.setItem('owm_api_key', apiKey);
+    } else {
+        alert("API Key is required to fetch weather.");
+    }
+}
+
+// ---- SELECTORS ----
 const cityEl = document.querySelector('.city');
 const tempEl = document.querySelector('.temp');
 const descEl = document.querySelector('.description');
@@ -11,7 +23,17 @@ const weatherIcon = document.getElementById('weather-icon');
 const weatherBg = document.querySelector('.weather-bg');
 const effectsDiv = document.getElementById('weather-effects');
 
+// ---- HELPERS ----
 function kelvinToC(kelvin) { return Math.round(kelvin - 273.15); }
+function kelvinToF(kelvin) { return Math.round((kelvin - 273.15) * 9/5 + 32); }
+
+function getBackgroundColor(tempC) {
+  if(tempC <= 0) return '#74b9ff';       // cold
+  if(tempC <= 15) return '#55efc4';      // cool
+  if(tempC <= 25) return '#ffeaa7';      // mild
+  if(tempC <= 35) return '#fab1a0';      // hot
+  return '#e17055';                      // very hot
+}
 
 function getLottieIcon(weather, isDay) {
   weather = weather.toLowerCase();
@@ -22,7 +44,7 @@ function getLottieIcon(weather, isDay) {
   return isDay ? 'https://assets10.lottiefiles.com/packages/lf20_bfO4yL.json' : 'https://assets10.lottiefiles.com/packages/lf20_cu4m6smv.json';
 }
 
-function setWeatherEffects(weather){
+function setWeatherEffects(weather) {
   effectsDiv.innerHTML = '';
   weather = weather.toLowerCase();
   if(weather.includes('rain') || weather.includes('drizzle')){
@@ -43,30 +65,14 @@ function setWeatherEffects(weather){
       effectsDiv.appendChild(flake);
     }
   }
-  if(weather.includes('thunder') || weather.includes('storm')){
-    for(let i=0;i<15;i++){
-      const circle = document.createElement('div');
-      circle.className='effect-circle';
-      circle.style.left=Math.random()*100+'%';
-      circle.style.top=Math.random()*80+'%';
-      circle.style.animationDelay=Math.random()*2+'s';
-      effectsDiv.appendChild(circle);
-    }
-  }
 }
 
-function getSkyGradient(tempC, isDay){
-  if(!isDay) return 'linear-gradient(to bottom, #0f2027, #203a43, #2c5364)'; // night gradient
-  if(tempC <= 0) return 'linear-gradient(to bottom, #74b9ff, #a29bfe)';
-  if(tempC <= 15) return 'linear-gradient(to bottom, #55efc4, #81ecec)';
-  if(tempC <= 25) return 'linear-gradient(to bottom, #ffeaa7, #fab1a0)';
-  if(tempC <= 35) return 'linear-gradient(to bottom, #fab1a0, #e17055)';
-  return 'linear-gradient(to bottom, #e17055, #d63031)';
-}
+// ---- FETCH WEATHER ----
+async function fetchWeather(lat, lon) {
+  if(!apiKey) return; // stop if no key
 
-async function fetchWeather(lat, lon){
   const url = `${API_BASE}/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-  try{
+  try {
     const res = await fetch(url);
     if(!res.ok) throw new Error('Failed to fetch weather');
     const data = await res.json();
@@ -75,14 +81,14 @@ async function fetchWeather(lat, lon){
     const feelsC = kelvinToC(data.main.feels_like);
     const isDay = data.dt > data.sys.sunrise && data.dt < data.sys.sunset;
 
+    // update UI
     cityEl.textContent = data.name;
     tempEl.textContent = `${tempC}°C`;
     descEl.textContent = data.weather[0].description;
     feelsEl.textContent = `${feelsC}°C`;
     humidityEl.textContent = `${data.main.humidity}%`;
-    windEl.textContent = `${Math.round(data.wind.speed*3.6)} km/h`;
-
-    weatherBg.style.background = getSkyGradient(tempC, isDay);
+    windEl.textContent = `${Math.round(data.wind.speed * 3.6)} km/h`;
+    weatherBg.style.background = getBackgroundColor(tempC);
     weatherIcon.load(getLottieIcon(data.weather[0].main, isDay));
     setWeatherEffects(data.weather[0].main);
 
@@ -94,6 +100,7 @@ async function fetchWeather(lat, lon){
   }
 }
 
+// ---- GEOLOCATION ----
 if(navigator.geolocation){
   navigator.geolocation.getCurrentPosition(pos => {
     fetchWeather(pos.coords.latitude, pos.coords.longitude);
@@ -103,4 +110,3 @@ if(navigator.geolocation){
 }else{
   cityEl.textContent = 'Geolocation not supported';
 }
-

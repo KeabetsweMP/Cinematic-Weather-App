@@ -1,5 +1,5 @@
 /**
- * Pro Weather App
+ * Weather App
  * Replace YOUR_API_KEY_HERE with a valid OpenWeatherMap API key.
  *
  * This script:
@@ -487,3 +487,4 @@ settingsAnimations.addEventListener('change', () => {
   state.animations = settingsAnimations.value;
   if(!state.animations) clearBackground();
 });
+

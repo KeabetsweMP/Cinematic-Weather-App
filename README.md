@@ -1,64 +1,56 @@
-# Weather Now - Cinematic Upgrade
+# 🌤️ Weather App
 
-This web app shows current weather with a short hourly forecast using OpenWeatherMap.
+A fully responsive, modern weather application built with **HTML, CSS, and JavaScript**.  
+It automatically detects your location, provides accurate weather data, and includes a **5-day forecast**, **settings panel**, and **PWA support** for offline access.
 
-## Features
-- **Cinematic weather card** with dynamic blur and shadow.
-- **Dynamic background gradient** based on temperature and day/night.
-- **Animated Lottie icons** for weather conditions.
-- **Weather effects**: rain, snow, thunder/storm circles.
-- **Extras displayed**: feels-like, humidity, wind.
-- **Units toggle (°C / °F)** persisted to localStorage.
-- **Loading spinner and disabled controls** while fetching.
-- **Geolocation support** for auto-detecting your location.
-- **PWA-ready** with a service worker for offline caching.
+---
 
-## Quick Start
-Weather Now - Upgraded
-Copy the folder to a web server or open index.html in a browser.
-(For geolocation and service worker features, serve over localhost or a web server.)
+## 🚀 Features
 
-When opening the app for the first time, you will be prompted to enter your OpenWeatherMap API key.
+### 🌍 Location & Search
+- Detects your current location automatically via GPS.
+- Manual city search option with autocomplete.
+- Error handling for invalid cities or API failures.
 
-Once entered, it is saved in your browser’s localStorage.
+### ☀️ Current Weather
+- Displays:
+  - Temperature in **Celsius** and **Fahrenheit**.
+  - Weather condition (e.g., *clear sky*, *light rain*).
+  - Weather icon matching real-time conditions.
+  - Humidity, wind speed, and pressure.
+  - Sunrise and sunset times.
+  - Local time and date for the city.
 
-Click "Use my location" or enter a city and click Search to view the weather.
+### 📅 Forecast
+- **5-day forecast** with min/max temperatures and icons.
+- (Optional) **Hourly forecast** with temperature and rain probability.
 
-##Features##
+### ⚙️ Settings Panel
+- Toggle **Celsius/Fahrenheit**.
+- Toggle **Light/Dark mode**.
+- Manage saved cities or preferences.
+- PWA caching options (clear cache, refresh data).
 
-Automatic geolocation detection
+### 💎 Design
+- Modern, minimalist UI with:
+  - Weather-based background animations (e.g., rain, clouds, sun glow).
+  - Smooth fade/slide transitions between states.
+  - Mobile-first responsive design.
+  - Hover effects and polished micro-interactions.
 
-Dynamic, cinematic backgrounds based on temperature
+### 🧠 Technology Stack
+- **HTML5**
+- **CSS3 (Flexbox, Grid, Animations)**
+- **Vanilla JavaScript (ES6+)**
+- **Fetch API** for weather data.
+- **OpenWeatherMap API** integration.
+- **Service Worker** for offline mode (PWA).
+- **Manifest.json** for installation on devices.
 
-Units toggle (°C / °F) persisted in localStorage
+---
 
-Animated weather icons (day/night)
+## 📦 Installation & Setup
 
-Weather effects (rain, snow, clouds, storm circles)
-
-Extra info: feels like, humidity, wind
-
-Small chart for upcoming temperatures (Chart.js via CDN)
-
-PWA manifest and a simple service worker for offline caching
-
-Loading spinner and disabled controls while fetching
-
-Inline message area instead of alert popups
-
-##Notes##
-
-Keep your API key secret; do not commit it to public repos.
-
-Service worker caches core files; avoid caching API responses without careful versioning.
-
-The app now prompts for your API key automatically on first load for easier deployment.
-
-Credits
-Powered by WeatherMap (OpenWeatherMap)
-
-Animated icons via LottieFiles
-
-Powered by WeatherMap (OpenWeatherMap)
-
-Animated icons via LottieFiles
+1. **Clone this repository:**
+   ```bash
+   git clone https://github.com/KeabetsweMP/weather-app.git
